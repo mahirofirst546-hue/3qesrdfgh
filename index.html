@@ -3,164 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>PocketCard</title>
 <style>
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    -webkit-tap-highlight-color: rgba(37, 99, 235, 0.15);
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
     background: #f4f5f7;
     color: #111827;
-    min-height: 100vh;
-    padding-bottom: 40px;
+    padding: 12px;
+    padding-bottom: 50px;
   }
-  header {
+  .top-bar {
     background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 12px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 10;
   }
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  header h1 { font-size: 16px; font-weight: 800; }
   .badge {
-    font-size: 11px;
+    font-size: 12px;
     background: #eff6ff;
     color: #2563eb;
-    padding: 3px 8px;
+    padding: 4px 8px;
     border-radius: 99px;
     font-weight: 700;
   }
-  .header-btns {
-    display: flex;
-    gap: 6px;
+  .btn-row { display: flex; gap: 6px; }
+  button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
   }
   .sm-btn {
-    border: 1px solid #d1d5db;
-    background: #ffffff;
-    color: #111827;
-    border-radius: 8px;
-    padding: 8px 10px;
+    padding: 9px 12px;
     font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
+    background: #e5e7eb;
+    color: #111827;
   }
-  .sm-btn.primary {
+  .sm-btn.blue { background: #2563eb; color: #ffffff; }
+  .big-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
     background: #2563eb;
     color: #ffffff;
-    border-color: #2563eb;
+    border-radius: 10px;
   }
+  .big-btn.gray { background: #e5e7eb; color: #111827; }
 
-  .container {
-    padding: 12px;
-    max-width: 600px;
-    margin: 0 auto;
-  }
   .box {
     background: #ffffff;
     border: 1px solid #e5e7eb;
     border-radius: 12px;
     padding: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   .hidden { display: none !important; }
 
   select, input, textarea {
+    width: 100%;
     font-size: 16px;
+    padding: 10px;
     border: 1px solid #d1d5db;
     border-radius: 8px;
-    padding: 10px;
     background: #ffffff;
     color: #111827;
-    width: 100%;
   }
-
-  .btn {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    background: #2563eb;
-    color: #ffffff;
-    text-align: center;
-  }
-  .btn:active { opacity: 0.75; }
-  .btn-sub { background: #e5e7eb; color: #111827; }
-
-  /* 絞り込み */
-  .filter-bar {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 11px 12px;
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  .filter-grid {
+  .grid2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
   }
-  .filter-grid label {
+  .grid2 label {
     display: block;
     font-size: 11px;
     color: #6b7280;
     margin-bottom: 3px;
   }
 
-  /* カード */
-  .flashcard {
+  .card {
     background: #ffffff;
     border: 1px solid #e5e7eb;
     border-radius: 14px;
-    padding: 28px 18px;
+    padding: 28px 16px;
     min-height: 220px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    cursor: pointer;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
-  .card-meta {
-    font-size: 12px;
-    color: #6b7280;
-    margin-bottom: 14px;
-  }
-  .star-color { color: #eab308; font-weight: 700; }
-  .card-q {
+  .meta { font-size: 12px; color: #6b7280; margin-bottom: 12px; }
+  .star { color: #eab308; font-weight: 700; }
+  .q-text {
     font-size: 20px;
     font-weight: 700;
     line-height: 1.6;
-    word-break: break-word;
     white-space: pre-wrap;
+    word-break: break-word;
   }
-  .card-a {
-    margin-top: 18px;
+  .a-text {
+    margin-top: 16px;
     padding-top: 16px;
     border-top: 1px dashed #d1d5db;
     font-size: 19px;
@@ -168,31 +121,30 @@
     font-weight: 700;
     line-height: 1.6;
     width: 100%;
-    word-break: break-word;
     white-space: pre-wrap;
+    word-break: break-word;
   }
 
-  .rate-grid {
+  .rate-row {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 8px;
   }
-  .rate-grid .btn { padding: 16px 4px; font-size: 15px; }
-  .btn-again { background: #fee2e2; color: #dc2626; }
-  .btn-hard { background: #fef3c7; color: #d97706; }
-  .btn-good { background: #dcfce7; color: #16a34a; }
+  .rate-row button { padding: 16px 4px; font-size: 15px; border-radius: 10px; }
+  .r-again { background: #fee2e2; color: #dc2626; }
+  .r-hard { background: #fef3c7; color: #d97706; }
+  .r-good { background: #dcfce7; color: #16a34a; }
 
-  .msg-ok {
+  .ok-banner {
     margin-top: 8px;
     padding: 10px;
-    border-radius: 8px;
     background: #dcfce7;
     color: #16a34a;
+    border-radius: 8px;
     font-size: 14px;
     font-weight: 700;
   }
-
-  .item {
+  .list-item {
     border-bottom: 1px solid #e5e7eb;
     padding: 10px 0;
     display: flex;
@@ -200,73 +152,652 @@
     align-items: center;
     gap: 8px;
   }
-  .item:last-child { border-bottom: none; }
-  .item-text { flex: 1; min-width: 0; }
-  .item-q { font-size: 14px; font-weight: 700; }
-  .item-a { font-size: 12px; color: #6b7280; margin-top: 2px; }
   .del-btn {
     background: #fee2e2;
     color: #dc2626;
-    border: none;
-    border-radius: 8px;
     padding: 8px 12px;
     font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-left">
-    <h1>PocketCard</h1>
+<div class="top-bar">
+  <div>
+    <strong style="font-size:16px;">PocketCard</strong>
     <span class="badge" id="stat-badge">0/0</span>
   </div>
-  <div class="header-btns">
-    <button type="button" class="sm-btn" id="btn-open-list">一覧・同期</button>
-    <button type="button" class="sm-btn primary" id="btn-open-add">＋ 問題追加</button>
+  <div class="btn-row">
+    <button type="button" class="sm-btn" onclick="toggleBox('panel-list')">一覧・同期</button>
+    <button type="button" class="sm-btn blue" onclick="toggleBox('panel-add')">＋ 問題追加</button>
   </div>
-</header>
+</div>
 
-<div class="container">
+<!-- 問題追加エリア -->
+<div class="box hidden" id="panel-add">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+    <strong>テキストから一括登録</strong>
+    <button type="button" class="sm-btn" onclick="hideAllBoxes()">閉じる ✕</button>
+  </div>
+  <textarea id="bulk-input" rows="6" placeholder="（穴抜きになっている文）：（穴抜き箇所の解答）"></textarea>
+  <p style="font-size:11px; color:#6b7280; margin:6px 0 10px;">
+    時代・プリント番号・（★の数）・2つ以上の穴抜きも自動認識します
+  </p>
+  <button type="button" class="big-btn" onclick="addCards()">この内容で登録する</button>
+  <div id="add-msg" class="ok-banner hidden"></div>
+</div>
 
-  <!-- 問題追加パネル -->
-  <div class="box hidden" id="panel-add">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-      <strong style="font-size:15px;">テキストから一括登録</strong>
-      <button type="button" class="sm-btn" id="btn-close-add">閉じる ✕</button>
+<!-- 一覧・同期エリア -->
+<div class="box hidden" id="panel-list">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+    <strong id="list-title">登録一覧・データ同期</strong>
+    <button type="button" class="sm-btn" onclick="hideAllBoxes()">閉じる ✕</button>
+  </div>
+  <div style="margin-bottom:12px; padding-bottom:12px; border-bottom:1px solid #e5e7eb;">
+    <button type="button" class="big-btn gray" style="margin-bottom:8px;" onclick="exportSync()">同期コードをコピー</button>
+    <textarea id="sync-box" rows="3" placeholder="同期コードを貼り付けて読み込み"></textarea>
+    <button type="button" class="big-btn" style="margin-top:8px;" onclick="importSync()">同期コードを読み込む</button>
+  </div>
+  <input type="text" id="list-search" placeholder="検索..." oninput="renderList()" style="margin-bottom:8px;">
+  <div id="card-list"></div>
+  <button type="button" class="big-btn gray hidden" id="btn-more" style="margin-top:8px;" onclick="showMore()">さらに30件表示</button>
+</div>
+
+<!-- 絞り込みバー -->
+<div class="box" style="padding:10px 12px; display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleFilter()">
+  <span id="filter-summary" style="font-size:13px; font-weight:700;">すべて出題 · シャッフル</span>
+  <span id="filter-arrow" style="font-size:13px; font-weight:700; color:#2563eb;">絞り込み ▼</span>
+</div>
+
+<div class="box hidden" id="filter-panel">
+  <div class="grid2">
+    <div>
+      <label>習得状況</label>
+      <select id="f-status" onchange="resetSession()">
+        <option value="all">すべて</option>
+        <option value="not_mastered">習得済み以外</option>
+        <option value="unlearned">未学習のみ</option>
+        <option value="again">もう一度のみ</option>
+        <option value="hard">不安のみ</option>
+        <option value="mastered">習得済みのみ</option>
+      </select>
     </div>
-    <textarea id="bulk-input" rows="6" placeholder="（穴抜きになっている文）：（穴抜き箇所の解答）&#10;※1文に穴が2つ以上ある問題もそのまま対応します"></textarea>
-    <p style="font-size:11px; color:#6b7280; margin:6px 0 10px;">
-      形式：「穴抜き文：解答」を1行ずつ入力（時代・プリント番号・（★の数）を自動判定）
-    </p>
-    <button type="button" class="btn" id="btn-submit-add">この内容で登録する</button>
-    <div id="add-msg" class="msg-ok hidden"></div>
-  </div>
-
-  <!-- 一覧・同期パネル -->
-  <div class="box hidden" id="panel-list">
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-      <strong style="font-size:15px;" id="list-title">登録一覧・データ同期</strong>
-      <button type="button" class="sm-btn" id="btn-close-list">閉じる ✕</button>
+    <div>
+      <label>重要度（★の数）</label>
+      <select id="f-star" onchange="resetSession()">
+        <option value="all">すべて</option>
+        <option value="3">★★★ のみ</option>
+        <option value="2plus">★★ 以上</option>
+        <option value="1plus">★ 以上</option>
+        <option value="2">★★ のみ</option>
+        <option value="1">★ のみ</option>
+        <option value="0">星なし（0）のみ</option>
+      </select>
     </div>
-
-    <div style="margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid #e5e7eb;">
-      <button type="button" class="btn btn-sub" id="btn-export" style="margin-bottom:8px;">同期コードをコピー</button>
-      <textarea id="sync-box" rows="3" placeholder="同期コードを貼り付けて読み込み"></textarea>
-      <button type="button" class="btn" id="btn-import" style="margin-top:8px;">同期コードを読み込む</button>
+    <div>
+      <label>時代・タグ</label>
+      <select id="f-tag" onchange="resetSession()">
+        <option value="all">すべて</option>
+      </select>
     </div>
-
-    <input type="text" id="list-search" placeholder="問題・答え・時代・プリントNo.で検索..." style="margin-bottom:8px;">
-    <div id="card-list"></div>
-    <button type="button" class="btn btn-sub hidden" id="btn-more" style="margin-top:8px;">さらに30件表示</button>
+    <div>
+      <label>プリント番号</label>
+      <select id="f-print" onchange="resetSession()">
+        <option value="all">すべて</option>
+      </select>
+    </div>
+    <div>
+      <label>出題数</label>
+      <select id="f-limit" onchange="resetSession()">
+        <option value="0">全問出題</option>
+        <option value="10">10問まで</option>
+        <option value="20">20問まで</option>
+        <option value="30">30問まで</option>
+      </select>
+    </div>
+    <div>
+      <label>出題順</label>
+      <select id="f-order" onchange="resetSession()">
+        <option value="shuffle">シャッフル</option>
+        <option value="star_desc">重要度が高い順</option>
+        <option value="seq">登録順</option>
+      </select>
+    </div>
   </div>
+</div>
 
-  <!-- 絞り込みバー -->
-  <div class="filter-bar" id="filter-toggle">
-    <span id="filter-summary">すべて出題 · シャッフル</span>
-    <span style="color:#2563eb;" id="filter-toggle-text">絞り込み ▼</span>
-  </div>
+<!-- カード表示 -->
+<div class="card" onclick="revealAnswer()">
+  <div class="meta" id="card-meta">準備完了</div>
+  <div class="q-text" id="card-q">右上の「＋ 問題追加」を押して問題を登録してください</div>
+  <div class="a-text hidden" id="card-a"></div>
+</div>
 
-  <!-- 絞り込み設定パネル -->
+<button type="button" class="big-btn" id="btn-show" onclick="revealAnswer()">答えを見る</button>
+<div class="rate-row hidden" id="rate-btns">
+  <button type="button" class="r-again" onclick="rateCard('again')">❌ もう一度</button>
+  <button type="button" class="r-hard" onclick="rateCard('hard')">🔺 不安</button>
+  <button type="button" class="r-good" onclick="rateCard('mastered')">⭕️ 習得</button>
+</div>
+
+<script>
+var STORAGE_KEY = 'pocketcard_data_v1';
+var cards = [];
+var queue = [];
+var currentIndex = 0;
+var isRevealed = false;
+var listLimit = 30;
+
+var ERA_LIST = [
+  '旧石器', '縄文', '弥生', '古墳', '飛鳥', '奈良', '平安',
+  '鎌倉', '南北朝', '室町', '戦国', '安土桃山', '織豊',
+  '江戸', '幕末', '明治', '大正', '昭和', '平成', '令和',
+  '原始', '古代', '中世', '近世', '近代', '現代'
+];
+
+function toggleBox(id) {
+  var target = document.getElementById(id);
+  var isHidden = target.classList.contains('hidden');
+  hideAllBoxes();
+  if (isHidden) {
+    target.classList.remove('hidden');
+    if (id === 'panel-list') {
+      listLimit = 30;
+      renderList();
+    }
+  }
+}
+
+function hideAllBoxes() {
+  document.getElementById('panel-add').classList.add('hidden');
+  document.getElementById('panel-list').classList.add('hidden');
+}
+
+function toggleFilter() {
+  var panel = document.getElementById('filter-panel');
+  var arrow = document.getElementById('filter-arrow');
+  if (panel.classList.contains('hidden')) {
+    panel.classList.remove('hidden');
+    arrow.textContent = '閉じる ▲';
+  } else {
+    panel.classList.add('hidden');
+    arrow.textContent = '絞り込み ▼';
+  }
+}
+
+function toHalf(str) {
+  return String(str || '').replace(/[０-９Ａ-Ｚａ-ｚ]/g, function(s) {
+    return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+  });
+}
+
+function normPrint(val) {
+  if (val === undefined || val === null) return '';
+  return toHalf(val).replace(/^(no\.?|print|プリント|プリ)\s*/i, '').trim();
+}
+
+function extractStars(text) {
+  var re = /[\(（]\s*([★☆]+|[0０])\s*[\)）]/;
+  var m = text.match(re);
+  if (m) {
+    var count = (m[1].match(/★/g) || []).length;
+    var cleaned = text.replace(re, '').replace(/\s{2,}/g, ' ').trim();
+    return { stars: count, found: true, cleaned: cleaned };
+  }
+  return { stars: 0, found: false, cleaned: text.trim() };
+}
+
+function extractPrint(text) {
+  var half = toHalf(text);
+  var re = /[\[\(【（#]?\s*(?:プリント\s*(?:no\.?)?|プリ\s*|no\.?|print\s*|p\.\s*)\s*([0-9]+(?:-[0-9]+)?)\s*[\]\)】）]?/i;
+  var m = half.match(re);
+  if (m) {
+    var origRe = /[\[\(【（#]?\s*(?:プリント\s*(?:[nNｎＮ][oOｏＯ]\.?)?|プリ\s*|[nNｎＮ][oOｏＯ]\.?|[pPｐＰ][rRｒＲ][iIｉＩ][nNｎＮ][tTｔＴ]\s*|[pPｐＰ]\.\s*)\s*[0-9０-９]+(?:-[0-9０-９]+)?\s*[\]\)】）]?/;
+    var cleaned = text.replace(origRe, ' ').replace(/\s{2,}/g, ' ').trim();
+    return { printNo: m[1], cleaned: cleaned };
+  }
+  return { printNo: '', cleaned: text.trim() };
+}
+
+function extractEra(text, allowInline) {
+  var bracketRe = new RegExp('[\\[\\(【（#]\\s*(' + ERA_LIST.join('|') + ')(?:時代|期|初期|中期|後期|末期)?\\s*[\\]\\)】）]');
+  var bm = text.match(bracketRe);
+  if (bm) {
+    var base = bm[1];
+    var eraName = /^(原始|古代|中世|近世|近代|現代)$/.test(base) ? base : base + '時代';
+    var cleaned = text.replace(bm[0], ' ').replace(/\s{2,}/g, ' ').trim();
+    return { era: eraName, cleaned: cleaned };
+  }
+  if (allowInline) {
+    var inlineRe = new RegExp('(' + ERA_LIST.join('|') + ')(?:時代|期|初期|中期|後期|末期)?');
+    var im = text.match(inlineRe);
+    if (im) {
+      var base2 = im[1];
+      var eraName2 = /^(原始|古代|中世|近世|近代|現代)$/.test(base2) ? base2 : base2 + '時代';
+      return { era: eraName2, cleaned: text.trim() };
+    }
+  }
+  return { era: '', cleaned: text.trim() };
+}
+
+function formatMultiAnswer(q, a) {
+  var blankMatches = q.match(/[\(（][^\)）]{0,6}[\)）]|［[^］]{0,6}］|\[[^\]]{0,6}\]|＿+|___+/g);
+  var blankCount = blankMatches ? blankMatches.length : 0;
+  if (blankCount >= 2 && a.indexOf('\n') === -1) {
+    var bySlash = a.split(/\s*[\/／|｜]\s*/).filter(Boolean);
+    if (bySlash.length >= 2) return bySlash.join('\n');
+    var byCircled = a.replace(/\s+([①②③④⑤⑥⑦⑧⑨⑩])/g, '\n$1');
+    if (byCircled !== a) return byCircled;
+  }
+  return a;
+}
+
+function starLabel(count) {
+  var n = Number(count) || 0;
+  return n > 0 ? '★'.repeat(n) : '';
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, function(m) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m];
+  });
+}
+
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cards)); } catch (e) {}
+  updateBadge();
+}
+
+function updateBadge() {
+  var mastered = 0;
+  for (var i = 0; i < cards.length; i++) {
+    if (cards[i].status === 'mastered') mastered++;
+  }
+  document.getElementById('stat-badge').textContent = '習得 ' + mastered + '/' + cards.length;
+}
+
+function updateFilterOptions() {
+  var tagSel = document.getElementById('f-tag');
+  var printSel = document.getElementById('f-print');
+  var curTag = tagSel.value;
+  var curPrint = printSel.value;
+
+  var tagMap = {};
+  var printMap = {};
+  for (var i = 0; i < cards.length; i++) {
+    var t = cards[i].tag || cards[i].era;
+    if (t) tagMap[t] = true;
+    var p = normPrint(cards[i].printNo);
+    if (p) printMap[p] = true;
+  }
+
+  var tags = Object.keys(tagMap).sort(function(a, b) {
+    var ia = -1, ib = -1;
+    for (var k = 0; k < ERA_LIST.length; k++) {
+      if (ia === -1 && a.indexOf(ERA_LIST[k]) === 0) ia = k;
+      if (ib === -1 && b.indexOf(ERA_LIST[k]) === 0) ib = k;
+    }
+    if (ia !== -1 && ib !== -1) return ia - ib;
+    if (ia !== -1) return -1;
+    if (ib !== -1) return 1;
+    return a.localeCompare(b, 'ja');
+  });
+
+  var prints = Object.keys(printMap).sort(function(a, b) {
+    return a.localeCompare(b, 'ja', { numeric: true });
+  });
+
+  tagSel.innerHTML = '<option value="all">すべて</option>' +
+    tags.map(function(t) { return '<option value="' + escapeHtml(t) + '">' + escapeHtml(t) + '</option>'; }).join('');
+  printSel.innerHTML = '<option value="all">すべて</option>' +
+    prints.map(function(p) { return '<option value="' + escapeHtml(p) + '">No.' + escapeHtml(p) + '</option>'; }).join('');
+
+  if (tagMap[curTag]) tagSel.value = curTag;
+  if (printMap[curPrint]) printSel.value = curPrint;
+}
+
+function resetSession() {
+  var st = document.getElementById('f-status').value;
+  var sr = document.getElementById('f-star').value;
+  var tg = document.getElementById('f-tag').value;
+  var pr = document.getElementById('f-print').value;
+  var lim = parseInt(document.getElementById('f-limit').value, 10);
+  var ord = document.getElementById('f-order').value;
+
+  var filtered = cards.filter(function(c) {
+    var s = c.status || 'unlearned';
+    var stars = Number(c.stars) || 0;
+    if (st === 'not_mastered' && s === 'mastered') return false;
+    if (st !== 'all' && st !== 'not_mastered' && s !== st) return false;
+    if (sr === '3' && stars < 3) return false;
+    if (sr === '2plus' && stars < 2) return false;
+    if (sr === '1plus' && stars < 1) return false;
+    if (sr === '2' && stars !== 2) return false;
+    if (sr === '1' && stars !== 1) return false;
+    if (sr === '0' && stars !== 0) return false;
+    if (tg !== 'all' && (c.tag || c.era) !== tg) return false;
+    if (pr !== 'all' && normPrint(c.printNo) !== pr) return false;
+    return true;
+  });
+
+  if (ord === 'shuffle') {
+    for (var i = filtered.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = filtered[i];
+      filtered[i] = filtered[j];
+      filtered[j] = tmp;
+    }
+  } else if (ord === 'star_desc') {
+    filtered = filtered.slice().sort(function(a, b) { return (Number(b.stars) || 0) - (Number(a.stars) || 0); });
+  } else {
+    filtered = filtered.slice().reverse();
+  }
+
+  if (lim > 0 && filtered.length > lim) {
+    filtered = filtered.slice(0, lim);
+  }
+
+  queue = filtered;
+  currentIndex = 0;
+
+  var stSel = document.getElementById('f-status');
+  var stText = stSel.options[stSel.selectedIndex].text;
+  var parts = [stText];
+  if (sr !== 'all') {
+    var srSel = document.getElementById('f-star');
+    parts.push(srSel.options[srSel.selectedIndex].text);
+  }
+  if (tg !== 'all') parts.push(tg);
+  if (pr !== 'all') parts.push('No.' + pr);
+  parts.push(queue.length + '問');
+  document.getElementById('filter-summary').textContent = parts.join(' · ');
+
+  updateBadge();
+  renderCard();
+}
+
+function renderCard() {
+  var qEl = document.getElementById('card-q');
+  var aEl = document.getElementById('card-a');
+  var mEl = document.getElementById('card-meta');
+  var showBtn = document.getElementById('btn-show');
+  var rateBtns = document.getElementById('rate-btns');
+
+  isRevealed = false;
+  aEl.classList.add('hidden');
+  rateBtns.classList.add('hidden');
+
+  if (queue.length === 0) {
+    mEl.textContent = '完了';
+    qEl.textContent = cards.length === 0 ? '右上の「＋ 問題追加」を押して問題を登録してください' : '条件に合う問題はすべて終了しました！';
+    showBtn.classList.add('hidden');
+    return;
+  }
+
+  var c = queue[currentIndex];
+  var statusMap = { unlearned: '未学習', again: 'もう一度', hard: '不安', mastered: '習得済み' };
+  var meta = [(currentIndex + 1) + '/' + queue.length + '問', statusMap[c.status || 'unlearned']];
+  if (c.tag || c.era) meta.push(escapeHtml(c.tag || c.era));
+  if (c.printNo) meta.push('No.' + escapeHtml(c.printNo));
+  var sl = starLabel(c.stars);
+  if (sl) meta.push('<span class="star">' + sl + '</span>');
+
+  mEl.innerHTML = meta.join(' · ');
+  qEl.textContent = c.q;
+  aEl.textContent = formatMultiAnswer(c.q, c.a);
+  showBtn.classList.remove('hidden');
+}
+
+function revealAnswer() {
+  if (queue.length === 0 || isRevealed) return;
+  isRevealed = true;
+  document.getElementById('card-a').classList.remove('hidden');
+  document.getElementById('btn-show').classList.add('hidden');
+  document.getElementById('rate-btns').classList.remove('hidden');
+}
+
+function rateCard(status) {
+  if (queue.length === 0) return;
+  var target = queue[currentIndex];
+  for (var i = 0; i < cards.length; i++) {
+    if (cards[i].id === target.id) {
+      cards[i].status = status;
+      save();
+      break;
+    }
+  }
+  if (status === 'again') {
+    queue.push(target);
+  }
+  currentIndex++;
+  if (currentIndex >= queue.length) {
+    queue = [];
+  }
+  renderCard();
+}
+
+function isMetaToken(token) {
+  if (extractStars(token).found) return true;
+  if (extractPrint(token).printNo) return true;
+  if (/^[0-9０-９]+(-[0-9０-９]+)?$/.test(token)) return true;
+  var eraCheck = extractEra(token, true);
+  if (eraCheck.era && token.length <= 12) return true;
+  return false;
+}
+
+function addCards() {
+  var text = document.getElementById('bulk-input').value.trim();
+  if (!text) {
+    alert('枠内に「穴抜き文：解答」を入力してからボタンを押してください。');
+    return;
+  }
+
+  var lines = text.split(/\r?\n/);
+  var currentSectionPrint = '';
+  var currentSectionTag = '';
+  var added = 0;
+
+  for (var idx = 0; idx < lines.length; idx++) {
+    var line = lines[idx].trim();
+    if (!line) continue;
+
+    var sepMatch = line.match(/^(.+?)\s*(?:[:：]|\t)\s*(.+)$/);
+    if (!sepMatch) {
+      var extP = extractPrint(line);
+      if (extP.printNo) currentSectionPrint = extP.printNo;
+      var extE = extractEra(extP.cleaned, true);
+      if (extE.era) currentSectionTag = extE.era;
+      continue;
+    }
+
+    var q = sepMatch[1].trim();
+    var a = sepMatch[2].trim();
+    var printNo = '';
+    var tag = '';
+    var stars = 0;
+    var starFound = false;
+
+    var tailParts = a.split(/\s*[\/／|｜]\s*/);
+    if (tailParts.length > 1) {
+      var keptAnswers = [];
+      for (var i = 0; i < tailParts.length; i++) {
+        var token = tailParts[i].trim();
+        if (!token) continue;
+        if (i >= 1 && isMetaToken(token)) {
+          var extS = extractStars(token);
+          if (extS.found) { stars = extS.stars; starFound = true; token = extS.cleaned; }
+          var extP = extractPrint(token);
+          if (extP.printNo) { printNo = extP.printNo; token = extP.cleaned; }
+          if (token) {
+            var extE2 = extractEra(token, true);
+            if (extE2.era) tag = extE2.era;
+          }
+        } else {
+          keptAnswers.push(token);
+        }
+      }
+      a = keptAnswers.join(' / ');
+    }
+
+    if (!starFound) {
+      var sA = extractStars(a);
+      if (sA.found) { stars = sA.stars; starFound = true; a = sA.cleaned; }
+    }
+    if (!starFound) {
+      var sQ = extractStars(q);
+      if (sQ.found) { stars = sQ.stars; starFound = true; q = sQ.cleaned; }
+    }
+    if (!printNo) {
+      var pA = extractPrint(a);
+      if (pA.printNo) { printNo = pA.printNo; a = pA.cleaned; }
+    }
+    if (!printNo) {
+      var pQ = extractPrint(q);
+      if (pQ.printNo) { printNo = pQ.printNo; q = pQ.cleaned; }
+    }
+    if (!tag) {
+      var eA = extractEra(a, false);
+      if (eA.era) { tag = eA.era; a = eA.cleaned; }
+    }
+    if (!tag) {
+      var eQ = extractEra(q, false);
+      if (eQ.era) { tag = eQ.era; q = eQ.cleaned; }
+    }
+    if (!tag) {
+      var eInline = extractEra(q + ' ' + a, true);
+      if (eInline.era) tag = eInline.era;
+    }
+
+    if (!printNo && currentSectionPrint) printNo = currentSectionPrint;
+    if (!tag && currentSectionTag) tag = currentSectionTag;
+    q = q.replace(/^[0-9０-９]+[.．]\s*/, '').trim();
+
+    if (q && a) {
+      cards.unshift({
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        q: q, a: a, tag: tag, printNo: printNo, stars: stars, status: 'unlearned'
+      });
+      added++;
+    }
+  }
+
+  var msgEl = document.getElementById('add-msg');
+  if (added > 0) {
+    save();
+    updateFilterOptions();
+    resetSession();
+    document.getElementById('bulk-input').value = '';
+    msgEl.textContent = '✅ ' + added + '問を追加しました！';
+    msgEl.classList.remove('hidden');
+    setTimeout(function() { msgEl.classList.add('hidden'); }, 4000);
+  } else {
+    alert('「（穴抜きになっている文）：（解答）」の形式で入力してください。\n※問題と解答の間に「：」（コロン）が必要です。');
+  }
+}
+
+function showMore() {
+  listLimit += 30;
+  renderList();
+}
+
+function renderList() {
+  var listEl = document.getElementById('card-list');
+  var kw = (document.getElementById('list-search').value || '').trim().toLowerCase();
+  document.getElementById('list-title').textContent = '登録一覧（全' + cards.length + '問）';
+
+  var filtered = kw
+    ? cards.filter(function(c) {
+        return c.q.toLowerCase().indexOf(kw) !== -1 ||
+          c.a.toLowerCase().indexOf(kw) !== -1 ||
+          (c.tag || '').toLowerCase().indexOf(kw) !== -1 ||
+          (c.printNo || '').toLowerCase().indexOf(kw) !== -1;
+      })
+    : cards;
+
+  var slice = filtered.slice(0, listLimit);
+  listEl.innerHTML = slice.map(function(c) {
+    var tags = [c.tag || c.era, c.printNo ? 'No.' + c.printNo : '', starLabel(c.stars)].filter(Boolean).join(' / ');
+    return '<div class="list-item">' +
+      '<div style="flex:1; min-width:0;">' +
+        '<div style="font-size:14px; font-weight:700;">' + escapeHtml(c.q) + '</div>' +
+        '<div style="font-size:12px; color:#6b7280; margin-top:2px;">' + escapeHtml(c.a) + (tags ? ' [' + escapeHtml(tags) + ']' : '') + '</div>' +
+      '</div>' +
+      '<button type="button" class="del-btn" onclick="deleteCard(\'' + c.id + '\')">削除</button>' +
+    '</div>';
+  }).join('');
+
+  var moreBtn = document.getElementById('btn-more');
+  if (filtered.length > listLimit) {
+    moreBtn.classList.remove('hidden');
+    moreBtn.textContent = 'さらに30件表示（残り ' + (filtered.length - listLimit) + '件）';
+  } else {
+    moreBtn.classList.add('hidden');
+  }
+}
+
+function deleteCard(id) {
+  cards = cards.filter(function(c) { return c.id !== id; });
+  save();
+  updateFilterOptions();
+  resetSession();
+  renderList();
+}
+
+function exportSync() {
+  var code = JSON.stringify(cards);
+  document.getElementById('sync-box').value = code;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(code).then(function() { alert('同期コードをコピーしました！'); });
+  } else {
+    alert('下の枠内のテキストをすべてコピーしてください');
+  }
+}
+
+function importSync() {
+  try {
+    var raw = document.getElementById('sync-box').value.trim();
+    if (!raw) return;
+    var parsed = JSON.parse(raw);
+    var imported = Array.isArray(parsed) ? parsed : (parsed.cards || []);
+    if (!Array.isArray(imported)) throw new Error();
+    cards = imported.map(function(c) {
+      var p = normPrint(c.printNo || c.print || c.printNumber || '');
+      var t = c.tag || c.era || '';
+      var s = typeof c.stars === 'number' ? c.stars : 0;
+      if (!t) {
+        var fromQ = extractEra(c.q || c.question || '', true);
+        if (fromQ.era) t = fromQ.era;
+      }
+      return {
+        id: c.id || Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+        q: c.q || c.question || '',
+        a: c.a || c.answer || '',
+        tag: t,
+        printNo: p,
+        stars: s,
+        status: c.status || 'unlearned'
+      };
+    });
+    save();
+    updateFilterOptions();
+    resetSession();
+    renderList();
+    alert(cards.length + '問のデータを読み込みました！');
+  } catch (e) {
+    alert('同期コードの形式が正しくありません');
+  }
+}
+
+// 初期化
+(function init() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      var parsed = JSON.parse(raw);
+      var list = Array.isArray(parsed) ? parsed : (parsed.cards || []);
+      for (var i = 0; i < list.length; i++) {
+        var c = list[i];
+        var p = normPrint(c.printNo || c.print || c.printNumber || '');
+        var t = c.tag || c.era || '';
+        var s = typeof c.stars === 'number' ? c.stars : 0;
+        if
