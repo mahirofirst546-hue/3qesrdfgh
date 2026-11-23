@@ -800,4 +800,24 @@ function importSync() {
         var p = normPrint(c.printNo || c.print || c.printNumber || '');
         var t = c.tag || c.era || '';
         var s = typeof c.stars === 'number' ? c.stars : 0;
-        if
+        if (!p) {
+          var fromTag = extractPrint(t);
+          if (fromTag.printNo) p = fromTag.printNo;
+        }
+        if (!t) {
+          var fromQ = extractEra(c.q || '', true);
+          if (fromQ.era) t = fromQ.era;
+        }
+        c.printNo = p;
+        c.tag = t;
+        c.stars = s;
+        cards.push(c);
+      }
+    }
+  } catch (e) { cards = []; }
+  updateFilterOptions();
+  resetSession();
+})();
+</script>
+</body>
+</html>
